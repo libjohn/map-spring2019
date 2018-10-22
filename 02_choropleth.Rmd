@@ -18,7 +18,7 @@ library(stringr)
 
 Use the tidycensus package to gather Census data and join that data with Census geography (i.e. geometry, i.e. shapefiles, i.e. polygons).  First, you will need to get a [free Census API key](https://api.census.gov/data/key_signup.html).  Kyle Walker's [*Basic usage of tidycensus*](https://walkerke.github.io/tidycensus/articles/basic-usage.html) documents this process. 
 
-```{}
+``` r
 census_api_key("YOUR API KEY GOES HERE")
 ```
 
@@ -32,22 +32,16 @@ See also Kyle's [more detailed documentation](https://walkerke.github.io/tidycen
 Create a Simple Features dataframe using `tidycensus::get_acs()`
 
 The Census population variable we'll use is "B01003_001".  More information about identifying Census variables is available at the [bottom of this page](#variables).
-```{r load-data, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
 nc_pop <- 
   get_acs(geography = "county",
           variables = "B01003_001",
           state = "NC",
           geometry = TRUE)
 
-#nc_pop
+as_tibble(nc_pop)
 ```
-```{}
-nc_pop <- 
-  get_acs(geography = "county",
-          variables = "B01003_001",
-          state = "NC",
-          geometry = TRUE)
-```
+
 
 
 
@@ -69,7 +63,7 @@ Make choropleth by filling county polygons (census geography) with correlated va
 nc_pop %>%
     st_transform(crs = "+init=epsg:4326") %>%
     leaflet(width = "100%") %>%
-    addProviderTiles(provider = "CartoDB.Positron") %>%
+    addProviderTiles(provider = "Stamen.TonerLines") %>%
     addPolygons(popup = ~ str_extract(NAME, "^([^,]*)"),
                 stroke = FALSE,
                 smoothFactor = 0,
@@ -88,7 +82,7 @@ Now we'll geolocate the Starbucks stores and add those locations as a layer over
 
 ### Load Lat/Long Data
 
-```{r load-data_02, message=FALSE, warning=FALSE}
+```{r load-data_02}
 starbucks <- read_csv("data/All_Starbucks_Locations_in_the_US_-_Map.csv")
 ```
 
@@ -105,7 +99,7 @@ Generate the map with multiple layers.
 nc_pop %>%
     st_transform(crs = "+init=epsg:4326") %>%
     leaflet(width = "100%") %>%
-    addProviderTiles(provider = "CartoDB.Positron") %>%
+    addProviderTiles(provider = "Stamen.TonerLines") %>%
     addPolygons(popup = ~ str_extract(NAME, "^([^,]*)"),
                 stroke = FALSE,
                 smoothFactor = 0,
@@ -116,7 +110,7 @@ nc_pop %>%
               values = ~ estimate,
               title = "Population percentiles",
               opacity = 1) %>% 
-    addTiles() %>% 
+#    addTiles() %>% 
   # The next paragraph adds a layer from exercise 01
     addCircleMarkers(data = starbucksNC, 
                lat = ~ Latitude, 
