@@ -15,7 +15,7 @@ library(ggplot2)
 
 ## Shapefiles as sf 
 
-Repeating steps from the [previous section](031_thematic_mapping.html), using the `tigris` package, get Census Tiger shapefiles for census geographies.  
+Using the `tigris` package, get Census Tiger shapefiles for census geographies.  
 
 ```{r}
 us_geo <- tigris::states(class = "sf")
@@ -23,7 +23,7 @@ us_geo <- tigris::states(class = "sf")
 
 ## Get BLS data
 
-As mentioned before, the data are from the Bureau of Labor Statistics.  These data are stored in an excel file in the `data` directory of the [repository](https://github.com/libjohn/mapping-with-R):  `data/OES_Report.xlsx`.  
+The data are from the Bureau of Labor Statistics.  These data are stored in an excel file in the `data` directory of the [repository](https://github.com/libjohn/mapping-with-R):  `data/OES_Report.xlsx`.  
 
 Again, from the previous section you will see how these data were gathered, loaded, transformed, and joined. 
 
@@ -97,6 +97,33 @@ contiguous_states %>%
 
 ```
 
+
+## Leaflet View of Same Map
+
+```{r greenpalette_leaflet_choropleth}
+
+GreenPalette <- colorNumeric(palette = "Greens",
+                               domain = contiguous_states$wages)
+
+contiguous_states %>% 
+  st_transform(crs = "+init=epsg:4326") %>%
+  leaflet(width = "100%") %>%
+  addTiles() %>% 
+  addPolygons(fillOpacity = 0.7,
+              smoothFactor = 0,
+              stroke = FALSE, 
+              color = ~GreenPalette(wages)) %>% 
+  addLegend("bottomleft", 
+              pal = GreenPalette, 
+              values = ~ wages,
+              bins = 5,
+              title = "Median Salary - Substance Abuse Social Workers",
+              labFormat = labelFormat(prefix = "$"),
+              opacity = 1)
+
+
+
+```
 
 ## End Notes
 
