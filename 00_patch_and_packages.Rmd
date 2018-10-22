@@ -1,0 +1,20 @@
+---
+title: "patch & packages"
+---
+
+## Install packages
+
+The following packages enable the code used in the workshop
+
+```{r}
+install.packages(c("ggmap", "leaflet", "readxl", "sf", "tidycensus", "tidyverse", "tigris", "tmap", "tmaptools", "viridis", "htmlwidgets"))
+```
+
+
+## Patch
+
+The following package installations are helpful for the 023 lab computers which have an installation problem this fall.
+
+```{r}
+install.packages(c("curl", "skimr", "httpuv", "later", "promises", "mime", "png", "geosphere", "sp", "jpeg", "mapproj", "maps", "rjson", "rappdirs", "classInt", "e1071", "units", "maptools", "rgdal", "uuid", "XML", "raster", "rgeos", "mapview", "satellite"))
+```
