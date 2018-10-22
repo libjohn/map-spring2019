@@ -1,6 +1,5 @@
 ---
 title: "Thematic Mapping with tmap"
-output: html_document
 ---
 
 
@@ -18,12 +17,8 @@ library(sf)
 
 Using the `tigris` package, get Census Tiger shapefiles for census geographies.  Tigris will return the shapefile in the `sf`, or simple features, format.  (See also, [more information on Shapefiles](02_choropleth.html#shapefiles).)
 
-```{}
-us_geo <- tigris::states(class = "sf")
-# us_geo_spdf <- states()  # spdf uses @data slots -- old school
-```
 
-```{r get-data, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+```{r get-data}
 us_geo <- tigris::states(class = "sf")
 # us_geo_spdf <- states()  # spdf uses @data slots -- old school
 ```
@@ -87,7 +82,7 @@ Salary4Helpers
 
 Before we join the BLS data to the shapefile we need to transform the structure of the downloaded BLS data
 
-```{r wrangle_bls_data, message=FALSE, warning=FALSE}
+```{r wrangle_bls_data}
 BlsWage_ToJoin <- Salary4Helpers %>% 
   rename(Area = "Area Name") %>% 
   rename(wages = "Annual mean wage(2)") %>% 
@@ -95,7 +90,7 @@ BlsWage_ToJoin <- Salary4Helpers %>%
   filter(wages != "NA_character_") %>% 
   select(State, wages)
 
-#BlsWage_ToJoin
+BlsWage_ToJoin
 ```
 
 
@@ -103,13 +98,13 @@ BlsWage_ToJoin <- Salary4Helpers %>%
 
 Using the `append_data()` function of the `tmaptools` package, append BLS data to the previously loaded shape object
 
-```{r make_nice_df, message=FALSE, warning=FALSE}
-HelperShapeObject <- append_data(us_geo, BlsWage_ToJoin, 
-                                 key.shp = "NAME",
-                                 key.data = "State")
+```{r make_nice_df}
+HelperShapeObject <- us_geo %>% 
+  left_join(BlsWage_ToJoin,
+            by = c("NAME" = "State"))
+
 as_tibble(HelperShapeObject)
 ```
-
 
 ## Quick Thematic Map
 
