@@ -1,8 +1,5 @@
 ---
 title: Latitude and Longitude Coordinates
-output: html_document
-#  html_document:
-#    toc: FALSE
 ---
 &nbsp;
 
@@ -20,12 +17,12 @@ library(leaflet)
 
 2012 Starbucks locations ([data source](https://github.com/libjohn/mapping-with-R/blob/master/data/All_Starbucks_Locations_in_the_US_-_Map.csv))
 
-```{r load-data, message=FALSE, warning=FALSE}
+```{r}
 starbucks <- read_csv("data/All_Starbucks_Locations_in_the_US_-_Map.csv")
 ```
 
 ### Subset Data to North Carolina
-```{r filter-dataset, message=FALSE, warning=FALSE}
+```{r}
 starbucksNC <- starbucks  %>% 
   filter(State == "NC")
 

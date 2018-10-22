@@ -1,21 +1,10 @@
 ---
 title: ggmap -- Latitude and Longitude Coordinates
-output: html_document
-#  html_document:
-#    toc: FALSE
 ---
-&nbsp;
-
-Using the same data as in the [previous exercise](01_georeference.html), **build a static map quickly and easily using `ggmap`**. The `ggmap` package enables the integration of popular raster base-maps with ggplot2 syntax.  
-
-The examples below documents ggmap syntax, starting with Google basemaps as examples.  **HOWEVER**, the output for the last examples, **stamen maps, work best.**  Google made significant changes to their Maps API in 2018.  Because of this, ggmap for Google maps is less convenient than before, especially when generating quick static maps.  **None the less**, using the `ggmap` with *stamen* map features is still an excellent way to generate high contrast black and white maps that are quite useful for printed publications.
-
-> Skip to the [Frame the Map](#frame_the_map) section to practice workable solutions.  Prior sections are useful for learning syntax. (See above for explanation.)
-
 
 ## Load Packages
 
-```{r libraries, message=FALSE, warning=FALSE}
+```{r}
 library(tidyverse)
 library(ggmap)
 ```
@@ -24,7 +13,7 @@ library(ggmap)
 
 2012 Starbucks locations ([data source](https://github.com/libjohn/mapping-with-R/blob/master/data/All_Starbucks_Locations_in_the_US_-_Map.csv))
 
-```{r load-data, message=FALSE, warning=FALSE}
+```{r}
 starbucks <- read_csv("data/All_Starbucks_Locations_in_the_US_-_Map.csv")
 ```
 
@@ -47,36 +36,15 @@ Some of the most popular base maps come from the Google Maps source.  Using ggma
 - roadmap
 - hybrid
 
-``` r 
-get_local_spot <-  get_map("Durham North Carolina", maptype = "roadmap", zoom = 10) 
-```
 Alternatively, use `help(get_map)` to identify additional map sources and other arguments for `maptype`.  For example...
 
 - Stamen maps: "terrain", "watercolor", and "toner" 
 - or a positive integer for cloudmade maps (see ?get_cloudmademap)
 
-### Display Base Map
 
-``` r
-ggmap(get_local_spot)
-```
+## Stament 
 
-```{r echo=FALSE, fig.align="center", fig.cap="Base map via ggmap"}
-knitr::include_graphics("images/gg_google_basemap.png") 
-```
-
-### Display points with geom_point
-
-``` r
-ggmap(get_local_spot) + 
-  geom_point(data = starbucksNC, aes(x = Longitude, y = Latitude), color = "navy", size = 1)
-```
-
-```{r echo=FALSE, fig.align="center", fig.cap= "Google map with points added"}
-knitr::include_graphics("images/gg_google_with-points.png") 
-```
-
-### Frame the Map
+First, frame the map
 
 Altering the map frame from a square to a rectangle requires knowing the coordinates of the Southwest and Northeast corners of the map frame.  This time, display a different basemap using the the Stamen source and the Toner maptype.
 
