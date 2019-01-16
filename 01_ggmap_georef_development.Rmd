@@ -1,0 +1,82 @@
+---
+title: ggmap -- Latitude and Longitude Coordinates
+---
+
+## Load Packages
+
+```{r}
+library(tidyverse)
+library(ggmap)
+```
+
+## Load Data
+
+2012 Starbucks locations ([data source](https://github.com/libjohn/mapping-with-R/blob/master/data/All_Starbucks_Locations_in_the_US_-_Map.csv))
+
+```{r}
+starbucks <- read_csv("data/All_Starbucks_Locations_in_the_US_-_Map.csv")
+```
+
+### Subset Data to North Carolina
+
+Using the same Starbucks from the previous example...
+```{r filter-dataset}
+starbucksNC <- starbucks  %>% 
+  filter(State == "NC")
+```
+
+## ggmap
+
+### Indentify base map and mapping location
+
+Some of the most popular base maps come from the Google Maps source.  Using ggmap, the following map types are available from the Google Maps source ...
+
+- terrain
+- satellite
+- roadmap
+- hybrid
+
+Alternatively, use `help(get_map)` to identify additional map sources and other arguments for `maptype`.  For example...
+
+- Stamen maps: "terrain", "watercolor", and "toner" 
+- or a positive integer for cloudmade maps (see ?get_cloudmademap)
+
+
+## Stamen 
+
+First, frame the map
+
+First, Identify the map frame with the "bounding box" coordinates.  In this case use the Southwest and Northeast corners of the map frame (aka "bounding box".)  Display a basemap using Stamen as the source and the Toner as the maptype.
+
+```{r message=FALSE, warning=FALSE}
+mapbox <- c(-80, 35.6, -78.5, 36.25)
+piedmont_coffee <- get_map(location = mapbox, source = "stamen", maptype = "toner", zoom = 9)
+```
+
+
+```{r}
+ggmap(piedmont_coffee)
+```
+
+#### Plot Coffee Shops
+
+ggplot2 syntax comes in handy for creating various map views.
+
+
+```{r message=FALSE, warning=FALSE}
+
+ggmap(piedmont_coffee) +
+  geom_point(data = starbucksNC, 
+             aes(x = Longitude, y = Latitude), 
+             color = "red", 
+             size = 2,
+             alpha = 0.7) +
+  theme(axis.text.x = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks = element_blank(),
+      rect = element_blank(),
+      axis.title.y=element_blank(),
+      axis.title.x=element_blank())
+```
+
+
