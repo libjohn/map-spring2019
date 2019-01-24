@@ -8,4 +8,4 @@ output: github_document
 Practice / learning code supporting the spring 2019 workshop [mapping with R](https://map-rfun.library.duke.edu/)
 
 
-!["Plot XY on a Map"](mymap.jpeg, "Plot XYZ")
+!["Plot XY on a Map"](mymap.jpeg)
