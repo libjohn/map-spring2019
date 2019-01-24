@@ -1,6 +1,8 @@
 ---
-title: Latitude and Longitude Coordinates
-output: html_document
+title: "Latitude and Longitude Coordinates"
+author: "John Little"
+date: "Jan. 24, 2019"
+output: html_notebook
 ---
 
 To introduce the [`mapview` package](https://r-spatial.github.io/mapview/index.html), make an interactive map with Starbucks coffee shop locations in North Carolina (2012).  (Adapted from Machlis.)^[[5 Visualizations in 5 Minutes](http://www.computerworld.com/article/2893271/business-intelligence/5-data-visualizations-in-5-minutes-each-in-5-lines-or-less-of-r.html). ComputerWorld.com by Sharon Machlis]
