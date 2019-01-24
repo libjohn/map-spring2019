@@ -2,6 +2,10 @@
 title: "Exercise 1: Georeferencing"
 ---
 
+**QUESTION** 
+
+1. What four packages do you need for this exercise? (Hint: 01_georeference.Rmd) Load those packages below.
+
 ## Load Libraries
 ```{r}
 
@@ -19,10 +23,11 @@ The data is a CSV file named "mockaroo_latlon.csv" located in the data directory
 
 ### Plot XY on the Map
 
-1. Using the `leaflet()` function, with the `addTiles()` and `addMarkers()` functions, 
-2. Plot the latitude and longitude variables for the data object "xy_location" with in `addMarkers()`
-3. Add a popup window with the "Company" variable
-4. You *do not* need to `setView()`
+1. Using the `mapview()` function, plot the latitude and longitude variables of `xy_location` 
+2. There are at least two ways to do this (see 01_georeference.Rmd), Try the second method
+3. Create a high contrast (black and white) map  
+4. Save the high contrast map as a jpeg file
+
 
 ```{r makemap}
 
