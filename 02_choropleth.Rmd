@@ -100,6 +100,30 @@ addLogo(mymap, "images/Rfun3.png",
 ```
 
 
+## Alaska & Hawaii - Shift 
+
+Shift and re-scale Alaska and Hawaii for better cartographic display of the entire US.
+
+```{r}
+
+akhi <- get_acs(geography = "state",
+                variables = "B01003_001",
+                geometry = TRUE,
+                shift_geo = TRUE)
+
+ 
+```
+
+
+```{r}
+mapviewOptions(legend.pos = "bottomright")
+mapviewOptions(leafletWidth = 800)
+#mapviewOptions()
+#mapviewOptions(default = TRUE)
+mapview(akhi, zcol = "estimate", native.crs = TRUE, crs = 5070)
+```
+
+
 
 ## End Notes
 
