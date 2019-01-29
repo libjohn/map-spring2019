@@ -55,6 +55,7 @@ Below, you can plot the latitude and longitude coordinate, and set the `map.type
 
 ```{r plotmap}
 # starNCmap <- mapview(sbux_sf, map.types = "Stamen.Toner")
+# starNCmap
 mapview(sbux_sf)
 ```
 
