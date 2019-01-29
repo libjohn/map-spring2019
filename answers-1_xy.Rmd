@@ -49,6 +49,7 @@ mymap <- mapview(xy_sf,
                  alpha.regions = 1,
                  lwd = 3)
 mapshot(mymap, file = "mymap.jpeg")
+mymap
 ```
 
 
